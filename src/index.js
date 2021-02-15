@@ -1,40 +1,40 @@
-
-
-
-
-
-
-/**
- * Create the class Caclculator
- * this class has 3 methods:
- * - history: once the = key is pressed, it keeps the last value in
- *            memory in an array
- * - equals: returns the value (thanks to an 'eval' function)
- * - clear: clears the history
- */
-
-const calculatorScreen = document.querySelector("#calculator .screen");
-const equals = document.querySelector("#calculator .eval");
-
-/**
- * This function below write the value of the pressed key on the screen
- * The += is the equivalent of:
- * document.querySelector('.screen').innerHTML = document.querySelector('.screen').innerHTML + val;
- *
- **/
-function print(val) {
-  calculatorScreen.innerHTML += val;
+class Calculator {
+    constructor() {
+      this._history = [];
+    }
+  
+    //this code listen to every key on the calculator and add the value on the screen
+    addValue() {
+      document.querySelectorAll("#calculator span").forEach(key => {
+        if (key.innerHTML !== "=") {
+          key.addEventListener('click', e => {
+              print(e.target.innerText);
+              return e.target.innerText;
+          });
+        };
+      });
+    }
+  
+    // This function below write the value of the pressed key on the screen
+    print(val) {
+        let calculatorScreen = document.querySelector("#calculator .screen");
+        calculatorScreen.innerHTML += val;
+    }
+  
+    // This function clears the screen
+    clear() {
+        let calculatorScreen = document.querySelector("#calculator .screen");
+        document.querySelector('#calculator .clear').addEventListener('click', () => (calculatorScreen.innerHTML = ""));
+    }
+  
+    //history: once the = key is pressed, it keeps the last value in memory in an array
+    history() {
+        let equals = document.querySelector("#calculator .eval");
+        let calculatorScreen = document.querySelector("#calculator .screen");
+        equals.addEventListener('click', () => this._history.push(calculatorScreen));
+    }
+  
 }
-
-//this code listen to every key on the calculator and add the value on the screen
-document.querySelectorAll("#calculator span").forEach(key => {
-  if (key.innerText !== "=") {
-    key.addEventListener("click", e => print(e.target.innerText));
-  }
-});
-
-document
-  .querySelector("#calculator .clear")
-  .addEventListener("click", () => (calculatorScreen.innerHTML = ""));
-
-// Implement here the event when the = key is pressed
+  
+  
+  
